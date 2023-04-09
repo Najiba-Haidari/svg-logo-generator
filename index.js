@@ -1,32 +1,32 @@
-const inquirer = require('inquirer')
+const inquirer = require('inquirer');
 const { writeFile } = require('fs/promises');
-
-
-const { Circle, Triangle, Square } = require('./lib/shapes')
 const SVG = require('./lib/svg')
+
+const { Triangle, Circle, Square } = require('./lib/shapes')
+
 
 const questions = [
     {
-        type: 'maxlength-input',
+        type: 'input',
         name: 'svgText',
-        message: 'Enter your text (max limit of 3 characters)',
-        maxLength: 3
+        message: 'Enter your text',
+        
     },
     {
         type: 'input',
         name: 'textColor',
-        message: 'Enter your text color choice. If you use a hexadecimal number please include # before the number.'
+        message: 'Enter the text color.'
     },
     {
         type: 'input',
         name: 'shapeColor',
-        message: 'Enter your shape color choice. If you use a hexadecimal number please include # before the number.'
+        message: 'Enter the color.'
     },
     {
         type: 'rawlist',
         name: 'shapeType',
-        message: 'Pick the shape you would like your logo.',
-        choices: ['Circle', 'Triangle', 'Square']
+        message: 'Choose the shape of the logo!',
+        choices: ['Triangle','Circle', 'Square']
     }
 ];
 
@@ -52,9 +52,9 @@ function writeToFile() {
             shape.setColor(answers.shapeColor)
 
             svg.renderShape(shape)
-            return writeFile('./examples/logo.svg', svg.renderSvg())
+            return writeFile('./examples/svglogo.svg', svg.renderSvg())
         })
-        .then(() => console.log('success'))
+        .then(() => console.log('svg created'))
         .catch((err) => console.log(err))
 }
-writeToFile()
+writeToFile();
